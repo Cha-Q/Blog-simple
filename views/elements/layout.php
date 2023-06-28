@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,12 @@
 </head>
 
 <body>
-    <?= $content ?>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a href="#" class="navbar-brand">Mon Site</a>
+    </nav>
+    <div class="container mt-4">
 
-        
+        <?= $content ?>
         
     </div>
 </body>

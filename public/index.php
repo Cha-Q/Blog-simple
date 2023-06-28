@@ -1,19 +1,30 @@
 <?php
 
+require '../vendor/autoload.php';
+$content = '';
+
+// initialisation du rooter
+
+$router = new AltoRouter();
+
+define('VIEW_PATH', dirname(__DIR__) .'/views');
+
+
+$router->map('GET', '/', function (){
+    require VIEW_PATH. '/post/index.php';
+});
+
+$router->map('GET', '/blog', function (){
+    require VIEW_PATH. '/post/index.php';
+});
+$router->map('GET', '/blog/categorie', function (){
+    require VIEW_PATH. '/categorie/show.php';
+});
+
 $description = "Page d'accueil";
 $pageTitle = 'Blog';
 
+$match = $router->match();
+$match['target']();
 
-ob_start();
-?>
-
-<header>
-    <nav class="navbar navbar-light  bg-light pl-4">
-        <p class="navbar-brand w-100 text-center pl-4">Bonjour le monde !</p>    
-    </nav>
-</header>
-
-<?php
-$content = ob_get_clean();
-
-require '../elements/layout.php';   
+require '../views/elements/layout.php';
