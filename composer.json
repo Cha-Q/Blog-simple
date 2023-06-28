@@ -1,0 +1,20 @@
+{
+    "name": "quent/blog-simple",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cha-Q"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^6.3",
+        "phpunit/phpunit": "^10.2"
+    },
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
