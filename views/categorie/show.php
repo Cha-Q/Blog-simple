@@ -1,11 +1,12 @@
-
 <?php
 
-ob_start();
-?>
-<h1>Ma catégorie</h1>
+    $pageTitle = 'Les catégories';
+    $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site'
 
-<?php $content = ob_get_clean(); 
+?>
+
+<h2>Mes catégories</h2>
+
 
 
 

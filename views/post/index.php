@@ -1,8 +1,9 @@
 <?php
-ob_start();
-?>
-<h1>Mes posts</h1>
 
-<?php $content = ob_get_clean(); 
+    $pageTitle = 'Les catégories';
+    $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site'
+
 ?>
 
+
+<h2>Mes articles</h2>
