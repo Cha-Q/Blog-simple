@@ -1,6 +1,6 @@
 <?php
 
-    $pageTitle = 'Les catégories';
+    $title = 'Les catégories';
     $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site'
 
 ?>
