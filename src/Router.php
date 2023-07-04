@@ -24,20 +24,28 @@
             $this->router = new AltoRouter;
         }
 
-        public function get(string $url,string $view, ?string $name = null):self
+        public function get(string $url, string $view, ?string $name = null):self
         {
             $this->router->map('GET', $url, $view, $name);
             return $this;
         }
 
-        public function run()
+        public function url(string $name, array $params = [])
+        {
+            return $this->router->generate($name, $params);
+        }
+
+        public function run() : self
         {
             $match = $this->router->match();
+            $params = $match['params'];
             $view = $match['target'];
+            $router = $this;
             ob_start();
             require $this->viewPath . DIRECTORY_SEPARATOR . $view . '.php';
             $content = ob_get_clean();
             require $this->viewPath . DIRECTORY_SEPARATOR . 'layout/default.php';
             return $this;
         }
+        
     }

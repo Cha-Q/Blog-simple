@@ -1,11 +1,11 @@
 <?php
     require dirname(__DIR__) . '/vendor/autoload.php';
 
+    use App\Connection;
+
     $faker = Faker\Factory::create('fr_FR');
 
-    $pdo = new PDO('mysql:dbname=tutoblog;host=127.0.0.1','root','root',[
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $pdo = Connection::getPDO();
 
     $pdo->exec('SET FOREIGN_KEY_CHECKS = 0');
     $pdo->exec('TRUNCATE TABLE post_category');
@@ -19,13 +19,11 @@
     $categories = [];
 
     for($i=0; $i< 50; $i++){
-        
         $pdo->exec("INSERT INTO post SET name='{$faker->sentence(3)}', slug ='{$faker->slug}', created_at='{$faker->date} {$faker->time}', content = '{$faker->paragraphs(3, true)}'");
         $posts[] = $pdo->lastInsertId();
     }
 
     for($i=0; $i< 5; $i++){
-        
         $pdo->exec("INSERT INTO category SET name='{$faker->word}', slug ='{$faker->slug}'");
         $categories[] = $pdo->lastInsertId();
     }
