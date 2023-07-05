@@ -1,6 +1,9 @@
 {
     "name": "quent/blog-simple",
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "App\\": "src/"
         }

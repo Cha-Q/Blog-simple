@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="main.css">
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <a href="#" class="navbar-brand">Mon Site</a>
     </nav>

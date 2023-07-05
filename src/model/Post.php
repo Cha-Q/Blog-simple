@@ -3,6 +3,7 @@
     namespace App\model;
     use App\helpers\Text;
     use DateTime;
+    
 
     class Post{
         private $id;
@@ -26,13 +27,18 @@
             return $this->name;
         }
 
+        public function getFormatedContent (): ?string
+        {
+            return nl2br(e($this->content));
+        }
+
         public function getExcerpt (): ?string
         {
             if($this->content === null){
                 return null;
             }
             
-            return nl2br(htmlentities(Text::excerpt(Text::excerpt($this->content, 60))));
+            return nl2br(e(Text::excerpt(Text::excerpt($this->content, 60))));
         }
 
         public function getSlug(): ?string

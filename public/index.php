@@ -30,8 +30,8 @@ $router = new Router(dirname(__DIR__) .'/views');
 $router
     ->get('/', 'index', 'main')
     ->get('/blog', 'post/index', 'blog')
+    ->get('/blog/categorie/[*:slug]-[i:id]', 'categorie/show', 'categorie')
     ->get('/blog/[*:slug]-[i:id]', 'post/show', 'post')
-    ->get('/blog/categorie', 'categorie/show', 'categorie')
     ->run();
 ?>
 
