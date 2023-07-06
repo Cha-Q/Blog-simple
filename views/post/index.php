@@ -24,6 +24,8 @@ use App\URL;
     $stmt->execute();
     $posts = $stmt->fetchAll(PDO::FETCH_CLASS, Post::class);
 
+    $link = $router->url('blog');
+
    
 ?>
 
