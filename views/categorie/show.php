@@ -50,7 +50,7 @@
     );
     
     /** @var Post[] */
-    $posts = $paginatedQuery->getItems();
+    $posts = $paginatedQuery->getItems(Post::class);
     
     $link = $router->url('categorie', ['id' => $category->getId(), 'slug' => $category->getSlug()]);
 ?>
