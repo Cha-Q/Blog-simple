@@ -4,25 +4,19 @@ use App\helpers\Text;
 use App\model\Post;
 use App\Connection;
 use App\URL;
+use App\PaginatedQuery;
 
     $title = 'Les articles';
     $description = 'Retrouvez ici tous les articles que vous aimez sur notre site';
 
     $pdo = Connection::getPDO();
 
-    $currentPage = URL::getPositiveInt('page', 1);
 
-    $count = (int)$pdo->query('SELECT COUNT(id) FROM post')->fetch(PDO::FETCH_NUM)[0];
-    $perPage = 12;
-    $pages = ceil($count / $perPage);
-    if($currentPage > $pages){
-        throw new Exception("Cette page n'existe pas");
-    }
-    $offset = $perPage * ($currentPage - 1);
-    $query = "SELECT * FROM post ORDER BY created_at DESC LIMIT $perPage OFFSET $offset";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $posts = $stmt->fetchAll(PDO::FETCH_CLASS, Post::class);
+    $paginatedQuery = new PaginatedQuery(
+        "SELECT * FROM post ORDER BY created_at DESC",
+        "SELECT COUNT(id) FROM post"
+    );
+    $posts = $paginatedQuery->getItems(Post::class);    
 
     $link = $router->url('blog');
 
