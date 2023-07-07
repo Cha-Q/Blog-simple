@@ -52,7 +52,26 @@
     /** @var Post[] */
     $posts = $paginatedQuery->getItems(Post::class);
     
+    $postsByIds = [];
+    foreach($posts as $post){
+        $postsByIds[$post->getId()] = $post;
+    }
+    
+   
+    $categories = $pdo
+        ->query('SELECT c.* ,pc.post_id
+                FROM post_category pc
+                JOIN category c ON c.id = pc.category_id
+                WHERE pc.post_id IN ('. implode(',', array_keys($postsByIds)) .')')
+        ->fetchAll(PDO::FETCH_CLASS, Category::class);
+
+        foreach($categories as $category){
+            $postsByIds[$category->getPost_Id()]->addCategory($category);
+        }
+    
     $link = $router->url('categorie', ['id' => $category->getId(), 'slug' => $category->getSlug()]);
+
+
 ?>
 
 <h2>Les posts correspondants à la catégorie <strong><?= $title ?></strong></h2>
