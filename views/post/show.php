@@ -2,6 +2,7 @@
 
     use App\Connection;
     use App\model\{Post, Category};
+    use App\table\{PostTable, CategoryTable};
 
     
     $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site';
@@ -10,21 +11,8 @@
     $slug = $params['slug'];
 
     $pdo = Connection::getPDO();
-    function getId(int $id, PDO $pdo){
-        $query = "SELECT * FROM post WHERE id = :id";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(['id' => $id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Post::class);
-        /** @var Post|false */
-        $posts = $stmt->fetch();
-        return $posts;
-    }
-    
-    $post = getId($id, $pdo);
-
-    if($post === false){
-        throw new Exception('Cet article n\'existe pas');
-    }
+    $post = (new PostTable($pdo))->find($id);
+    (new CategoryTable($pdo))->hydratePosts([$post]);
 
     if($post->getSlug() != $slug){
         $url = $router->url('post', ['slug' =>$post->getSlug(), 'id' => $id]);
@@ -55,7 +43,7 @@
             <?= $post->getCreated_At()->format('DD d M Y h:m') ?>
         </p>
         <p>
-            <?php foreach($categories as $category) :  ?>
+            <?php foreach($post->getCategories() as $category) :  ?>
                 <a href="<?= $router->url('categorie', ['id' => $category->getId(), 'slug' => $category->getSlug()])?>"><?= e($category->getName()) ?></a>
                 
             <?php endforeach  ?>

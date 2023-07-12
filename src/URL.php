@@ -18,7 +18,8 @@ class URL {
         return (int)$_GET[$name];
     } 
 
-    public static function getPositiveInt(string $name, int $default = null) : ?int{
+    public static function getPositiveInt(string $name, int $default = null) : ?int
+    {
 
         $param = self::getInt($name, $default);
         

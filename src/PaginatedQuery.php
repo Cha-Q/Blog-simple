@@ -53,7 +53,7 @@
         {
             $currentPage = $this->getCurrentPage();
             if($currentPage <= 1) return null;
-            if($currentPage > 2) $link . "?page=" .($currentPage - 1);
+            if($currentPage > 2) $link .= "?page=" .($currentPage - 1);
             return "<a href='$link' class='btn btn-primary'> << Page précédente</a>";
         }
 

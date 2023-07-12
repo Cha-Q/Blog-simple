@@ -1,9 +1,8 @@
 <?php
 
-use App\model\{Post, Category};
 use App\Connection;
-use App\URL;
-use App\PaginatedQuery;
+use App\table\PostTable;
+
 
     $title = 'Les articles';
     $description = 'Retrouvez ici tous les articles que vous aimez sur notre site';
@@ -11,34 +10,13 @@ use App\PaginatedQuery;
     $pdo = Connection::getPDO();
 
 
-    $paginatedQuery = new PaginatedQuery(
-        "SELECT * FROM post ORDER BY created_at DESC",
-        "SELECT COUNT(id) FROM post"
-    );
-    $posts = $paginatedQuery->getItems(Post::class);
-
-    $postsByIds = [];
-    foreach($posts as $post){
-        $postsByIds[$post->getId()] = $post;
-    }
+    
+    $table = new PostTable($pdo);
+    [$posts, $pagination] = $table->findPaginated();
     
    
-    $categories = $pdo
-        ->query('SELECT c.* ,pc.post_id
-                FROM post_category pc
-                JOIN category c ON c.id = pc.category_id
-                WHERE pc.post_id IN ('. implode(',', array_keys($postsByIds)) .')')
-        ->fetchAll(PDO::FETCH_CLASS, Category::class);
-
-        foreach($categories as $category){
-            $postsByIds[$category->getPost_Id()]->addCategory($category);
-        }
-
-    
     $link = $router->url('blog');
-    
 
-   
 ?>
 
 
