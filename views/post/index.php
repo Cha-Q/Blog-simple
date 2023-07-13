@@ -2,19 +2,15 @@
 
 use App\Connection;
 use App\table\PostTable;
-
-
+ 
     $title = 'Les articles';
     $description = 'Retrouvez ici tous les articles que vous aimez sur notre site';
 
     $pdo = Connection::getPDO();
-
-
     
     $table = new PostTable($pdo);
     [$posts, $pagination] = $table->findPaginated();
     
-   
     $link = $router->url('blog');
 
 ?>
