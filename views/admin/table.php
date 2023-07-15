@@ -15,7 +15,7 @@
                 <td><?= $post->getName() ?></td>
                 <td><?= $post->getExcerpt() ?></td>
                 <td><button class="btn btn-primary">supprimer</button>
-                <button class="btn btn-primary">modifier</button></td>
+                <a class="btn btn-primary" href="<?= $router->url('modif', ['slug' =>$post->getSlug(), 'id' => $post->getId()]) ?>">modifier</a></td>
             </tr>
         </tbody>  
     <?php endforeach ?>

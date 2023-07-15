@@ -2,9 +2,8 @@
 
 
     use App\Connection;
-    use App\model\{Post, Category};
     use App\table\{CategoryTable, PostTable};
-    use App\PaginatedQuery;
+    
 
     
     $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site';

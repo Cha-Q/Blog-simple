@@ -1,6 +1,7 @@
 <?php
 
 namespace App\model\admin;
+use App\model\{Post, Category};
 use PDO;
 
 final class Administrator{
@@ -26,4 +27,12 @@ final class Administrator{
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
     }
+
+    public function findPost(int $id, string $slug)
+        {
+            $query = "SELECT * FROM post WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute(['id' => $id]);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Post::class);
+        }
 }

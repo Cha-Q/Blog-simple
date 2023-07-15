@@ -32,6 +32,11 @@
             return nl2br(e($this->content));
         }
 
+        public function getContent(): ?string
+        {
+            return $this->content;
+        }
+
         public function getExcerpt (): ?string
         {
             if($this->content === null){
@@ -64,5 +69,7 @@
             $this->categories[] = $category;
             $category->set_post($this);
         }
+
+        
 
     }

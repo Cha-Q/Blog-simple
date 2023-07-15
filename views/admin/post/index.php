@@ -11,7 +11,7 @@ $pdo = Connection::getPDO();
 $table = new PostTable($pdo);
 [$posts, $pagination] = $table->findPaginated();
 
-$admin = new Administrator($pdo);
 
-require 'table.php';
 
+
+require dirname(__DIR__) .'/table.php';
