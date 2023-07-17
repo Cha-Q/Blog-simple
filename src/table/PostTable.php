@@ -47,5 +47,24 @@
             
         }
 
+        public function deletePost(int $id): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM $this->table WHERE id = :id");
+        $ok = $stmt->execute(['id' => $id]);
+        if($ok === false){
+            throw new \Exception("Impossible de supprimer l'enregistrement $id dans la table {$this->table}");
+        }
+    }
+
+     public function findPost(int $id): ?Post
+        {
+            $query = "SELECT * FROM {$this->table} WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute(['id' => $id]);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
+            $post = $stmt->fetch();
+            return $post;
+        }
+
         
     }

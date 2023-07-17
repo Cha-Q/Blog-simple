@@ -14,25 +14,12 @@ final class Administrator{
         $this->pdo = $pdo;
     }
 
-    public function updatePost(int $id, string $text)
+    public function updatePost(int $id, string $name = null, string $text = null): void
     {
-        $query = "UPDATE post SET content = $text WHERE id = $id";
+        $query = "UPDATE post SET name = $name, content = $text WHERE id = $id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
     }
 
-    public function deletePost(int $id)
-    {
-        $query = "DELETE post WHERE id = $id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-    }
-
-    public function findPost(int $id, string $slug)
-        {
-            $query = "SELECT * FROM post WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute(['id' => $id]);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, Post::class);
-        }
+   
 }

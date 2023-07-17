@@ -19,10 +19,13 @@
         
     </div>
 
-    <footer class='bg-light py-4 footer text-center mt-auto'>
-        <?php if(defined('DEBUG_TIME')) : ?>
-        page générée en <?= round(1000 * (microtime(true) - DEBUG_TIME), 2) ?> ms.
-        <?php endif ?>
-    </footer>
+    <?php if(isset($title) === 'Les articles'): ?>
+         <footer class='bg-light py-4 footer text-center mt-auto'>
+            <?php if(defined('DEBUG_TIME')) : ?>
+                page générée en <?= round(1000 * (microtime(true) - DEBUG_TIME), 2) ?> ms.
+            <?php endif ?>
+        </footer>
+    <?php endif ?>
+   
 </body>
 </html>
