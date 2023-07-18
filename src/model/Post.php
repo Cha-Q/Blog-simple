@@ -27,14 +27,14 @@
             return $this->name;
         }
 
-        public function getFormatedContent (): ?string
-        {
-            return nl2br(e($this->content));
-        }
-
         public function getContent(): ?string
         {
             return $this->content;
+        }
+
+        public function getFormatedContent (): ?string
+        {
+            return nl2br(e($this->content));
         }
 
         public function getExcerpt (): ?string
@@ -43,7 +43,7 @@
                 return null;
             }
             
-            return nl2br(e(Text::excerpt(Text::excerpt($this->content, 60))));
+            return nl2br(e(Text::excerpt($this->content, 60)));
         }
 
         public function getSlug(): ?string
@@ -53,6 +53,24 @@
         public function getCreated_At(): DateTime
         {
             return new Datetime($this->created_at);
+        }
+
+        public function setName(string $name): self
+        {
+            $this->name = $name;
+            return $this;
+        }
+         public function setContent(string $content): self
+        {
+            $this->content = $content;
+            return $this;
+        }
+
+        public function  setSlug(string $slug): self 
+        {
+            $this->slug = $slug;
+
+            return $this;
         }
 
         /**
@@ -69,7 +87,5 @@
             $this->categories[] = $category;
             $category->set_post($this);
         }
-
-        
 
     }

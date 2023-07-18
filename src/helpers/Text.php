@@ -10,6 +10,11 @@
                 return $content;
             }
             $lastSpace = mb_strpos($content, ' ', $limit);
+            $lastBr = mb_strpos($content, "\r\n", 1);
+
+            if ($lastBr != false){
+                return mb_substr($content, 0, $lastBr) . ' ...';
+            }
             return mb_substr($content, 0, $lastSpace) . ' ...';
         }
     }

@@ -20,6 +20,7 @@
     "require": {
         "altorouter/altorouter": "^2.0",
         "filp/whoops": "^2.15",
-        "fakerphp/faker": "^1.23"
+        "fakerphp/faker": "^1.23",
+        "vlucas/valitron": "1.4.5"
     }
 }
