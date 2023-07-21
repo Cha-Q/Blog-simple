@@ -43,14 +43,14 @@
                 return null;
             }
             
-            return nl2br(e(Text::excerpt($this->content, 60)));
+            return nl2br(e(Text::excerpt(Text::excerpt($this->content, 60))));
         }
 
         public function getSlug(): ?string
         {
             return $this->slug;
         }
-        public function getCreated_At(): DateTime
+        public function getCreatedAt(): DateTime
         {
             return new Datetime($this->created_at);
         }
@@ -71,6 +71,12 @@
             $this->slug = $slug;
 
             return $this;
+        }
+
+        public function setCreatedAt($createdAt): DateTime
+        {
+            $this->created_at = $createdAt;
+            return new Datetime($this->created_at);
         }
 
         /**

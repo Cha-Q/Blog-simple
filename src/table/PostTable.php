@@ -70,14 +70,16 @@
         $query = "UPDATE {$this->table} 
                     SET name = :name, 
                     content = :content,
-                    slug = :slug 
+                    slug = :slug,
+                    created_at = :created_at 
                     WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
         $ok = $stmt->execute(
             ['id' => $post->getId(),
             'name' => $post->getName(),
             'content' => $post->getContent(),
-            'slug' => $post->getSlug()]
+            'slug' => $post->getSlug(),
+            'created_at' => $post->getCreatedAt()->format('Y-m-d H:i:s')]
         );
 
         if($ok === false){

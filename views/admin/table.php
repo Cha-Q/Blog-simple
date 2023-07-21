@@ -12,7 +12,7 @@
     <?php foreach($posts as $post) : ?>
         <tbody>
             <tr>
-                <th scope="col"><?= $post->getCreated_At()->format('d M Y h:m') ?></th>
+                <th scope="col"><?= $post->getCreatedAt()->format('d M Y h:m') ?></th>
                 <td>
                         <?= e($post->getName()) ?>
                 </td>
