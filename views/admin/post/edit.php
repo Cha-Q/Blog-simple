@@ -6,6 +6,7 @@
     use App\Validator;
     use App\Form;
     use App\validators\PostValidator;
+    use App\Rdm;
 
     
     $id = (int)$params['id'];
@@ -23,16 +24,10 @@
 
         $v = new Validator($_POST);
         $v = new PostValidator($_POST, $postTable, $post->getId());
+        $params = ['name', 'content', 'slug', 'created_at'];
 
-        $slug = strtolower(str_replace(" ", "-",$_POST['name']));
+        Rdm::hydrate($post, $params);
         
-        // App\Object::hydrate($post, $_POST, ['name', 'content', 'slug', 'created_at']);
-        $post
-            ->setName($_POST['name'])
-            ->setContent($_POST['content'])
-            ->setSlug($slug)
-            ->setCreatedAt($_POST['created_at']);
-
         if($v->validate()) {
             $postTable->updatePost($post);
             $success = true;
