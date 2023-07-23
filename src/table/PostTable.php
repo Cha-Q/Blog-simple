@@ -88,5 +88,31 @@
 
     }
 
+    public function createPost(Post $post)
+    {
+        
+            $query = "INSERT INTO {$this->table} (name, slug, content, created_at)
+            VALUES (:name,
+            :slug,
+            :content,
+            :created_at)";
+            $stmt = $this->pdo->prepare($query);
+            $ok = $stmt->execute(
+                [
+                'name' => $post->getName(),
+                'slug' => $post->getSlug(),
+                'content' => $post->getContent(),
+                'created_at' => $post->getCreatedAt()->format('Y-m-d')
+                ]
+            );
+        
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+         if($ok === false){
+            throw new \Exception("Impossible de créer l'article dans la table {$this->table}");
+        }
+        return $result;
+    }
+
         
 }

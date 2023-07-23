@@ -40,7 +40,7 @@
             <?= e($post->getName()) ?>
         </h1>
         <p class='text-muted'> 
-            <?= $post->getCreated_At()->format('DD d M Y h:m') ?>
+            <?= $post->getCreatedAt()->format('D M Y h:m') ?>
         </p>
         <p>
             <?php foreach($post->getCategories() as $category) :  ?>

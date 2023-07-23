@@ -9,7 +9,7 @@
 
     $id = (int)$params['id'];
     $pdo = Connection::getPDO();
-    // (new PostTable($pdo))->deletePost($id);
+    (new PostTable($pdo))->deletePost($id);
     header('Location:'. $router->url('admin_posts') . "?delete=$id");
     
     

@@ -2,7 +2,6 @@
 
     use App\Connection;
     use App\table\PostTable;
-    use App\model\Post;
     use App\Validator;
     use App\Form;
     use App\validators\PostValidator;
@@ -15,32 +14,29 @@
     $post = $postTable->find($id);
     
     $success = false;
-    $slug = $post->getSlug();
-
+    
+    dump($_POST);
 
    $error = null;
-    
-    if(!empty($_POST)){
+
+   if(!empty($_POST)){
 
         $v = new Validator($_POST);
         $v = new PostValidator($_POST, $postTable, $post->getId());
         $params = ['name', 'content', 'slug', 'created_at'];
 
         Rdm::hydrate($post, $params);
-        
-        if($v->validate()) {
+
+            if($v->validate()) {
             $postTable->updatePost($post);
             $success = true;
-        } else {
+            } else {
             // Errors
             $error = $v->errors();
-            
-        }
 
+            }
     }
-   
     
-
     $postName = $post->getName();
     $postContent = $post->getContent();
     

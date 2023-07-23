@@ -4,16 +4,7 @@
     namespace App;
 
 
-    use App\model\Post;
-
     class Form{
-
-
-        private $post;
-
-        private $postName;
-
-        private $postContent;
         private $errors;
 
         private $data;
@@ -27,11 +18,17 @@
             $this->errors = $err;
         }
 
-        public function input (string $name, string $label): string
+        public function input (string $name, string $label, string $placeholder = null): string
         {
-            $value = $this->getValue($name);
+            $p = '';
             $inputClass = "form-control";
             $invalidFeedback ='';
+            if($placeholder !== null){
+                $p = "placeholder='$placeholder' ";
+            }else{
+                $value = $this->getValue($name);
+                $p = "value=$value";
+            }
             if(isset($this->errors[$name])){
                 $inputClass .= " is-invalid";
                 $invalidFeedback = "<div class='invalid-feedback'>" . implode('<br>', $this->errors[$name]) . "</div>";
@@ -43,21 +40,27 @@
                 id="{$name}" 
                 type="text" 
                 name="{$name}" 
-                value="$value">
+                $p>
                 $invalidFeedback
             HTML;
         }
 
-        public function textarea(string $name, string $label): string
+        public function textarea(string $name, string $label, string $placeholder = null): string
         {
-            $value = $this->getValue($name);
+            $p = '';
+            $v = '';
             $inputClass = $this->getInputClass($name);
             $invalidFeedback = $this->getErrorFeedback($name);
+             if($placeholder !== null){
+                $p = "placeholder='$placeholder' ";
+            }else{
+                $value = $this->getValue($name);
+                $v = "value=$value";
+            }
 
             return <<<HTML
                  <label for="{$name}">$label :</label>
-                 <textarea class="$inputClass" name="{$name}" id={$name} cols="30" rows="10" >$value
-                 </textarea>
+                 <textarea class="$inputClass" name="{$name}" id={$name} cols="30" rows="10" $p>$v</textarea>
                  $invalidFeedback
              HTML;
         }
