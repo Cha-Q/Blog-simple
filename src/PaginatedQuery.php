@@ -54,7 +54,7 @@
             $currentPage = $this->getCurrentPage();
             if($currentPage <= 1) return null;
             if($currentPage > 2) $link .= "?page=" .($currentPage - 1);
-            return "<a href='$link' class='btn btn-primary'> << Page précédente</a>";
+            return "<a href='$link' class='btn btn-primary my-4'> << Page précédente</a>";
         }
 
         public function nextLink(string $link): ?string
@@ -63,7 +63,7 @@
             $pages = $this->getPages();
             if($currentPage >= $pages) return null;
             $link .= "?page=" .($currentPage + 1);
-            return "<a href='$link' class='btn btn-primary'>Page Suivante >> </a>";
+            return "<a href='$link' class='btn btn-primary my-4'>Page Suivante >> </a>";
 
         }
 

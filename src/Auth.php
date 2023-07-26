@@ -1,19 +1,19 @@
 <?php
 
-namespace App;
+    namespace App;
 
 
 
-class Auth{
+    class Auth{
 
-    public static function check()
-    {
-        // if(!isset($_GET['admin'])){
-        //     throw new \Exception('vilain');
-        // }
-        // TODO : écrire la funcion
+        public static function check()
+        {
+            // if(!isset($_GET['admin'])){
+            //     throw new \Exception('vilain');
+            // }
+            // TODO : écrire la funcion
+        }
+        
+
+
     }
-    
-
-
-}

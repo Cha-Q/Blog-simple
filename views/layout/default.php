@@ -14,7 +14,6 @@
 <body class="d-flex flex-column h-100">
     <nav class="navbar p-2 navbar-dark wrap bg-info">
         <a href="#" class="navbar-brand p-2">Mon Site</a>
-        <a class="nav-link text-light btn btn-secondary p-1" href="<?= $router->url('admin_post_new')?>"> New +</a>
     </nav>
     <div class="h-100">
 

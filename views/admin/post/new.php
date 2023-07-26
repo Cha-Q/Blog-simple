@@ -19,7 +19,7 @@
     $post->setCreatedAt(date('Y-m-d H:i:s'));
     $error = null;
 
-
+    dump($post);
     if(!empty($_POST)){
 
         $pdo = Connection::getPDO();

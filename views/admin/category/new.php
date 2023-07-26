@@ -29,7 +29,12 @@
         ObjectHelper::hydrate($item, $params);
         
         if($v->validate()) {
-            $table->createCategory($item);
+            $id = $table->create([
+                'name' => $item->getName(),
+                'slug' => $item->getSlug()
+            ]);
+            $item->setId($id);
+            
             $success = true;
             header("Location: " . $router->url('admin_category', ['id' => $item->getId(), 'slug' => $item->getSlug()]) ."?success=1");
             exit(); 

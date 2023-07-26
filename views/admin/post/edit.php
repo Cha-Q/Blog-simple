@@ -19,11 +19,11 @@
 
     $success = false;
     
-    dump($_POST);
+
 
    $error = null;
 
-   if(!empty($_POST)){
+    if(!empty($_POST)){
 
         $v = new Validator($_POST);
         $v = new PostValidator($_POST, $postTable, $post->getId());
@@ -32,7 +32,12 @@
         ObjectHelper::hydrate($post, $params);
 
             if($v->validate()) {
-            $postTable->updatePost($post);
+            $postTable->update([
+                'name' => $post->getName(),
+                'content' => $post->getContent(),
+                'slug' => $post->getSlug(),
+                'created_at' => $post->getCreatedAt()->format('Y-m-d H:m:s')
+            ], $id);
             $success = true;
             } else {
             // Errors
@@ -47,7 +52,6 @@
     
     $title = "{$post->getName()}";
 
-    dump($post);
     $form = new Form($post, $error);
     
 ?>

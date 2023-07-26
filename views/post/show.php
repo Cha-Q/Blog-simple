@@ -34,7 +34,7 @@
 
 ?>
 
-<div class="container card">
+<div class="container card mt-4">
     <div class="card-body">
         <h1>
             <?= e($post->getName()) ?>
@@ -51,8 +51,9 @@
         <p>
             <?= $post->getFormatedContent() ?>
         </p>
-        <p>
-            <a href="<?= $router->url('post', ['slug' =>$post->getSlug(), 'id' => $post->getId()]) ?>" class='btn btn-primary'>Click</a>
+        <p  class="d-flex mb-3">
+                 <a href="<?= $router->url('post', ['slug' =>$post->getSlug(), 'id' => $post->getId()]) ?>" class='btn btn-primary ms-auto p-2'>Click</a>
+           
         </p>
     </div>
     

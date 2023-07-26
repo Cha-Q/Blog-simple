@@ -21,7 +21,6 @@
             L'article <?= $_GET['delete']?> a bien été supprimmé
         </div>
     <?php endif; ?>
-        
 
     <?php
     require dirname(__DIR__) .'/table.php';

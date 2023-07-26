@@ -2,7 +2,6 @@
 
 
     namespace App;
-    use App\model\Post;
 
 
     class ObjectHelper{

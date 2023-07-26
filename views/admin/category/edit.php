@@ -30,7 +30,10 @@
 
         ObjectHelper::hydrate($item, $params);
             if($v->validate()) {
-            $table->updateCategory($item);
+            $table->update([
+                'name' => $item->getName(),
+                'slug' => $item->getSlug()
+            ], $item->getId());
             $success = true;
             } else {
             // Errors

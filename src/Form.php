@@ -27,7 +27,7 @@
                 $p = "placeholder='$placeholder' ";
             }else{
                 $value = $this->getValue($name);
-                $p = "value=$value";
+                $p = "value ='{$value}'";
             }
             if(isset($this->errors[$name])){
                 $inputClass .= " is-invalid";
@@ -36,11 +36,7 @@
 
             return <<<HTML
             <label for="{$name}">$label</label>
-            <input class="$inputClass" 
-                id="{$name}" 
-                type="text" 
-                name="{$name}" 
-                $p>
+            <input class="$inputClass" id="{$name}" type="text" name="{$name}" $p>
                 $invalidFeedback
             HTML;
         }
@@ -52,7 +48,7 @@
             $inputClass = $this->getInputClass($name);
             $invalidFeedback = $this->getErrorFeedback($name);
              if($placeholder !== null){
-                $p = "placeholder='$placeholder' ";
+                $p = "placeholder='$placeholder'";
             }else{
                 $value = $this->getValue($name);
                 $v = "$value";

@@ -3,7 +3,7 @@
     namespace App\table;
     use PDO;
     use App\table\Exception\NotFoundException;
-    use App\PaginatedQuery;
+    
 
     abstract class Table {
 
@@ -64,4 +64,52 @@
             return $this->pdo->query($sql, PDO::FETCH_CLASS, $this->class)->fetchAll();
 
         }
+
+        public function delete(int $id): void
+        {
+            $stmt = $this->pdo->prepare("DELETE FROM {$this->table} WHERE id = :id");
+            $ok = $stmt->execute(['id' => $id]);
+            if($ok === false){
+                throw new \Exception("Impossible de supprimer l'enregistrement $id dans la table {$this->table}");
+            }
+        }
+
+        public function create(array $data):int
+        {
+            $sqlFields = [];
+            foreach($data as $k => $v){
+                $sqlFields[] = "$k = :$k";
+            }
+            $fields = implode(',', $sqlFields);
+            $query = "INSERT INTO {$this->table} SET $fields";
+            $stmt = $this->pdo->prepare($query);
+            $ok = $stmt->execute($data);
+        
+            if($ok === false){
+                throw new \Exception("Impossible de créer l'article dans la table {$this->table}");
+            }
+            return $this->pdo->lastInsertId();
+        }
+
+        
+        public function update(array $data, int $id): void
+        {
+            $sqlFields = [];
+            foreach($data as $k => $v){
+                $sqlFields[] = "$k = :$k";
+            }
+            $fields = implode(',', $sqlFields);
+            $query = "UPDATE {$this->table} 
+                        SET $fields 
+                        WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $ok = $stmt->execute(array_merge($data, ['id' => $id]));
+
+            if($ok === false){
+                throw new \Exception("Impossible de modifier l'enregistrement dans la table {$this->table}");
+            }
+
+        }
+
+        
     }

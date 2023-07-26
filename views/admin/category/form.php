@@ -10,7 +10,7 @@
             <button class="btn btn-primary mt-4 ml-2">
                 <?= ($item->getId() === null)? "Créer" : "Modifier" ?>
             </button>
-            <a href="/admin" class="btn mt-4 ml-2 btn-primary">
+            <a href="<?= $router->url('admin_categories') ?>" class="btn mt-4 ml-2 btn-primary">
                 Retour
             </a>
         </div>

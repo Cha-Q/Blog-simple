@@ -2,8 +2,7 @@
 
 
     namespace App\validators;
-
-use App\table\CategoryTable;
+    use App\table\CategoryTable;
 
     class CategoryValidator extends AbstractValidator{
         

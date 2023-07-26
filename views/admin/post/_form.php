@@ -1,4 +1,3 @@
-
 <div class="container">
     <form method="POST" action=''>
         <div>
@@ -11,7 +10,7 @@
 
         <div>
             <button class="btn btn-primary mt-4 ml-2">
-            <?= ($post->getId() === null)? "Créer" : "Modifier" ?>
+            <?= ($post->getName() === null)? "Créer" : "Modifier"; ?>
             </button>
             <a href="/admin" class="btn mt-4 ml-2 btn-primary" >
             Retour
