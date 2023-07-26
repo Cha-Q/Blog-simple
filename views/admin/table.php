@@ -6,7 +6,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Nom de l'article</th>
                 <th scope="col">Extrait</th>
-                <th scope="col">Actions</th>
+                <th scope="col"><a class="nav-link text-light btn btn-secondary py-2" href="<?= $router->url('admin_post_new')?>"> Nouveau +</a></th>
             </tr>
         </thead>
     <?php foreach($posts as $post) : ?>

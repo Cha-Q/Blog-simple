@@ -1,38 +1,36 @@
 <?php
 
     use App\Connection;
-    use App\table\PostTable;
+    use App\table\CategoryTable;
     use App\Validator;
     use App\Form;
-    use App\validators\PostValidator;
+    use App\validators\CategoryValidator;
     use App\ObjectHelper;
     use App\Auth;
 
-
-    Auth::check();
-
     
+    Auth::check(); 
     $id = (int)$params['id'];
     $pdo = Connection::getPDO();
-    $postTable = (new PostTable($pdo));
-    $post = $postTable->find($id);
+    $table = (new CategoryTable($pdo));
+    $item = $table->find($id);
 
     $success = false;
     
-    dump($_POST);
+
 
    $error = null;
+   $params = ['name', 'slug'];
 
    if(!empty($_POST)){
 
         $v = new Validator($_POST);
-        $v = new PostValidator($_POST, $postTable, $post->getId());
-        $params = ['name', 'content', 'slug', 'created_at'];
+        $v = new CategoryValidator($_POST, $table, $item->getId());
+        
 
-        ObjectHelper::hydrate($post, $params);
-
+        ObjectHelper::hydrate($item, $params);
             if($v->validate()) {
-            $postTable->updatePost($post);
+            $table->updateCategory($item);
             $success = true;
             } else {
             // Errors
@@ -41,22 +39,19 @@
             }
     }
     
-    $postName = $post->getName();
-    $postContent = $post->getContent();
     
-    
-    $title = "{$post->getName()}";
+    $title = "{$item->getName()}";
 
-    dump($post);
-    $form = new Form($post, $error);
+    
+    $form = new Form($item, $error);
     
 ?>
 
-    <h1>Editez l'article <strong><?= e($postName) ?></strong></h1>
+    <h1>Editez la catégorie <strong><?= $item->getName() ?></strong></h1>
 
-    <?php if(isset($_GET["success"]) === "1") : ?>
+    <?php if(isset($_GET["success"]) == "1") : ?>
     <div class="alert alert-success">
-        L'article a bien été créé ! 
+        La catégorie a bien été créé ! 
     </div>
 
     <?php endif ?>
@@ -74,4 +69,4 @@
 
     <?php endif ?>
 
-    <?= require "_form.php"?>
+    <?= require "form.php"?>

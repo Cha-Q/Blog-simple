@@ -3,6 +3,7 @@
     namespace App\table;
     use PDO;
     use App\table\Exception\NotFoundException;
+    use App\PaginatedQuery;
 
     abstract class Table {
 
@@ -55,5 +56,12 @@
             $query = $this->pdo->prepare($sql);
             $query->execute($params);
             return (int)$query->fetch(PDO::FETCH_NUM)[0] > 0;
+        }
+
+        public function all () : array
+        {
+            $sql = "SELECT * FROM {$this->table}";
+            return $this->pdo->query($sql, PDO::FETCH_CLASS, $this->class)->fetchAll();
+
         }
     }

@@ -5,31 +5,28 @@
     use App\model\Post;
 
 
-    class Rdm{
+    class ObjectHelper{
 
-    
-
-
-        static function hydrate(Post $post, array $params, ?string $slug =null)
+        static function hydrate($object, array $params, ?string $slug =null)
         {
 
             foreach($params as $param){
-                self::setValue($param, $post);
+                self::setValue($param, $object);
             }
-            return $post;
+            return $object;
         }
 
-        static function setValue(string $key, $post)
+        static function setValue(string $key, $object)
         {
             if($key === 'slug'){
                 $method = "set". str_replace(' ', '',ucwords(str_replace('_', ' ', $key)));
                 $slug = strtolower(str_replace(" ", "-",$_POST['name']));
-                return $post->$method($slug);
+                return $object->$method($slug);
                 
             }
             
             $method = "set". str_replace(' ', '',ucwords(str_replace('_', ' ', $key)));
-            return $post->$method($_POST[$key]);
+            return $object->$method($_POST[$key]);
             
         }
 

@@ -55,7 +55,7 @@
                 $p = "placeholder='$placeholder' ";
             }else{
                 $value = $this->getValue($name);
-                $v = "value=$value";
+                $v = "$value";
             }
 
             return <<<HTML
@@ -66,7 +66,7 @@
         }
 
 
-        private function getValue(string $key)
+        private function getValue(string $key): ?string
         {
             if(is_array($this->data)){
                 return $this->data[$key] ?? null;

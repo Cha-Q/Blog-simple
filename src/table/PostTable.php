@@ -4,7 +4,6 @@
     use App\table\Table;
     use App\PaginatedQuery;
     use App\model\{Post, Category};
-    use App\table\Exception\NotFoundException;
     use PDO;
 
     final class PostTable extends Table {
@@ -12,19 +11,19 @@
     protected $table = 'post';
 
     protected $class = Post::class;
-
+    
     public function findPaginated(): ?array
     {
         $paginatedQuery = new PaginatedQuery(
-            "SELECT * FROM post ORDER BY created_at DESC",
-            "SELECT COUNT(id) FROM post",
+            "SELECT * FROM {$this->table} ORDER BY created_at DESC",
+            "SELECT COUNT(id) FROM {$this->table}",
             $this->pdo
         );
 
-        $posts = $paginatedQuery->getItems($this->class);
+        $items = $paginatedQuery->getItems($this->class);
     
-        (new CategoryTable($this->pdo))->hydratePosts($posts);
-        return [$posts, $paginatedQuery];
+        (new CategoryTable($this->pdo))->hydratePosts($items);
+        return [$items, $paginatedQuery];
     }
 
     public function findPaginatedForCategory(int $categoryId)
@@ -46,6 +45,15 @@
         return [$posts, $paginatedQuery];
         
     }
+    public function findPost(int $id): ?Post
+    {
+        $query = "SELECT * FROM {$this->table} WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
+        $post = $stmt->fetch();
+        return $post;
+    }
 
     public function deletePost(int $id): void
     {
@@ -56,15 +64,7 @@
         }
     }
 
-     public function findPost(int $id): ?Post
-    {
-        $query = "SELECT * FROM {$this->table} WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['id' => $id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
-        $post = $stmt->fetch();
-        return $post;
-    }
+     
     public function updatePost(Post $post): void
     {
         $query = "UPDATE {$this->table} 
@@ -88,7 +88,7 @@
 
     }
 
-    public function createPost(Post $post)
+    public function createPost(Post $post):void
     {
         
             $query = "INSERT INTO {$this->table} (name, slug, content, created_at)
@@ -106,12 +106,10 @@
                 ]
             );
         
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
          if($ok === false){
             throw new \Exception("Impossible de créer l'article dans la table {$this->table}");
         }
-        return $result;
+        $post->setId($this->pdo->lastInsertId());
     }
 
         
