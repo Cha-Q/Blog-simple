@@ -28,10 +28,13 @@ if(isset($_GET['page']) && $_GET['page'] === '1'){
 $router = new Router(dirname(__DIR__) .'/views');
 
 $router
-    ->get('/', 'index', 'main')
+    ->get('/', 'post/index', 'main')
     ->get('/blog', 'post/index', 'blog')
     ->get('/blog/categorie/[*:slug]-[i:id]', 'categorie/show', 'categorie')
     ->get('/blog/[*:slug]-[i:id]', 'post/show', 'post')
+    ->get('/connexion', 'login/index', 'connexion')
+    ->match('/register', 'login/register/index', 'register')
+    ->match('/sign-in', 'login/sign/index', 'sign')
     // ADMIN
     // gestion des articles
     ->get('/admin', 'admin/post/index', 'admin_posts')

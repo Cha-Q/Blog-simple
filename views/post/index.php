@@ -16,7 +16,7 @@ use App\table\PostTable;
 ?>
 
 
-<h2>Mes articles</h2>
+<h2 class="text-light">Mes articles</h2>
 
 <div class="d-flex justify-content-center flex-wrap">
     <?php foreach($posts as $post) : ?>

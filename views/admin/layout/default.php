@@ -6,14 +6,20 @@
     <meta name="description" content="<?= $description ?? 'Mon super blog' ?>">
     <title><?= isset($title) ? e($title) : 'Mon site' ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
-    
-</svg>
+
 </head>
 
 <body class="h-100">
+    <style>
+        .hover-effect{
+            transition: all 0.5s linear;
+        }
+        .hover-effect:hover{
+            transform: scale(0.6); 
+        }
+    </style>
     <nav class="navbar navbar-expand navbar-dark wrap bg-primary">
-        <a href="#" class="navbar-brand">Mon Site</a>
+        <a href="<?= $router->url('blog') ?>" class="navbar-brand p-2 hover-effect">Mon Site</a>
         <ul class="navbar-nav d-flex flex-row">
             <li class="nav-item"> <a href="<?= $router->url('admin_posts') ?>" class="nav-link">
                 Articles

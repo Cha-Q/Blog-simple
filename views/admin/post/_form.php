@@ -2,9 +2,10 @@
     <form method="POST" action=''>
         <div>
             <?= $form->input('name', 'Titre');?>
+            <?= $form->select('categories_ids', 'Les catégories', $categories);?>
             <?= $form->textarea('content', 'Contenu de l\'article');?>
             <?= $form->input('created_at', 'Date de modification');?>
-
+           
         </div>
 
 

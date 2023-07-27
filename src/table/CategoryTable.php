@@ -16,6 +16,7 @@
         {
             $postsByIds = [];
             foreach($posts as $post){
+                $post->setCategories([]);
                 $postsByIds[$post->getId()] = $post;
             }
             
@@ -32,5 +33,13 @@
                 }
         }
 
-        
+        public function list():array
+        {
+            $categories = $this->queryAndFetchAll("SELECT * FROM {$this->table} ORDER BY name ASC");
+            $results = [];
+            foreach($categories as $category){
+                $results[$category->getId()] = $category->getName();
+            }
+            return $results;
+        }
     }

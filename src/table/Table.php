@@ -58,9 +58,14 @@
             return (int)$query->fetch(PDO::FETCH_NUM)[0] > 0;
         }
 
+        public function queryAndFetchAll(string $sql): array
+        {
+            return $this->pdo->query($sql, PDO::FETCH_CLASS, $this->class)->fetchAll();
+        }
+
         public function all () : array
         {
-            $sql = "SELECT * FROM {$this->table}";
+            $sql = "SELECT * FROM {$this->table} ORDER BY id ASC";
             return $this->pdo->query($sql, PDO::FETCH_CLASS, $this->class)->fetchAll();
 
         }

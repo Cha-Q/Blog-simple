@@ -61,8 +61,31 @@
              HTML;
         }
 
+        public function select(string $key, string $label, array $option):string
+        {
+            $class = '';
+            $options = $option;
+            $optionsHTML = [];
+            $value = $this->getValue($key);
+            foreach($options as $k => $v){
+                $selected = in_array($k, $value) ? " selected" : '';
+                $optionsHTML[] = "<option  value=$k $selected>$v</option>";
+            }
+            $optionsHTML = implode('', $optionsHTML);
+            $inputClass = $this->getInputClass($key);
+            $invalidFeedback = $this->getErrorFeedback($key);
+            return <<<HTML
+            <label for="{$key}">$label :</label>
+            
+            <select class="$inputClass" id="{$key}" type="text" name="{$key}[]" multiple>
+                $optionsHTML;
+            </select>
+              $invalidFeedback  
+            HTML;
+        }
 
-        private function getValue(string $key): ?string
+
+        private function getValue(string $key)
         {
             if(is_array($this->data)){
                 return $this->data[$key] ?? null;

@@ -35,9 +35,9 @@
 
 <h2>Les posts correspondants à la catégorie <strong><?= $title ?></strong></h2>
 
-<div class="row"> 
+<div class="d-flex justify-content-center flex-wrap"> 
         <?php foreach($posts as $post): ?>
-            <div class="col-md-3 py-4">
+            <div class="col-md-3 py-4 mx-2">
                 <?php require dirname(__DIR__) . '/post/card.php'?>
             </div>
         <?php endforeach ?>

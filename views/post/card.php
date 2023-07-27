@@ -11,8 +11,8 @@
 
     
 
-    <div class="card h-100">
-        <div class="card-body ">
+    <div class="card h-100 hover-effect">
+        <div class="card-body d-flex flex-column">
             <h5 class="card-title"><?= htmlentities($post->getName()) ?></h5>
             <p class='text-muted'>
                 <?= $post->getCreatedAt()->format('d F Y') ?>
@@ -24,8 +24,8 @@
             <p>
                 <?= $post->getExcerpt ()?>
             </p>
-            <p>
-                <a href="<?= $router->url('post', ['id' => $post->getId(), 'slug' => $post->getSlug()]) ?>" class='btn btn-primary'> Voir plus</a>
+            <p class="mt-auto">
+                <a  href="<?= $router->url('post', ['id' => $post->getId(), 'slug' => $post->getSlug()]) ?>" class='btn btn-primary '> Voir plus</a>
             </p>
         </div>
     </div>

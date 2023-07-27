@@ -65,8 +65,9 @@
         }
 
         
-        public function updatePost(Post $post): void
+        public function updatePost(Post $post, ?array $categories = null): void
         {
+            $this->pdo->beginTransaction();
             $this->update(
                 ['id' => $post->getId(),
                 'name' => $post->getName(),
@@ -74,11 +75,25 @@
                 'slug' => $post->getSlug(),
                 'created_at' => $post->getCreatedAt()->format('Y-m-d H:i:s')], $post->getId()
             );
+
+
+            $this->pdo->exec('DELETE FROM post_category WHERE post_id = ' . $post->getId());
+             
+            $query = $this->pdo->prepare('INSERT INTO post_category SET post_id = :post_id, category_id = :category_id');
+            if($categories != null){
+                foreach($categories as $category){
+                    $query->execute([
+                        'post_id' => $post->getId(),
+                        'category_id' => $category
+                    ]);
+                }
+            }
+            $this->pdo->commit();
         }
 
-        public function createPost(Post $post):void
+        public function createPost(Post $post, ?array $categories = null):void
         {
-            
+            $this->pdo->beginTransaction();
             $id = $this->create(
             [
             'name' => $post->getName(),
@@ -88,6 +103,18 @@
             ]);
     
             $post->setId($id);
+
+            if($categories != null){
+                    $query = $this->pdo->prepare('INSERT INTO post_category SET post_id = :post_id, category_id = :category_id');
+                    foreach($categories as $category){
+                        $query->execute([
+                            'post_id' => $post->getId(),
+                            'category_id' => $category
+                    ]);
+                }
+            }
+            
+            $this->pdo->commit();
         }
 
         

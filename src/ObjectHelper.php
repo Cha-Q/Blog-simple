@@ -25,6 +25,7 @@
             }
             
             $method = "set". str_replace(' ', '',ucwords(str_replace('_', ' ', $key)));
+            
             return $object->$method($_POST[$key]);
             
         }

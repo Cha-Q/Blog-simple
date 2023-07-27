@@ -1,7 +1,7 @@
 <?php
 
     use App\Connection;
-    use App\table\PostTable;
+    use App\table\{PostTable, CategoryTable};
     use App\model\Post;
     use App\Validator;
     use App\Form;
@@ -14,23 +14,32 @@
     
     $error = null;
     $title = "Créer votre article";
-   
+    $pdo = Connection::getPDO();
     $post = new Post;
     $post->setCreatedAt(date('Y-m-d H:i:s'));
     $error = null;
-
+    $categoryTable = new CategoryTable($pdo);
+    $categories = $categoryTable->list();
     dump($post);
     if(!empty($_POST)){
 
-        $pdo = Connection::getPDO();
+        
         $postTable = (new PostTable($pdo));
         $v = new Validator($_POST);
-        $v = new PostValidator($_POST, $postTable);
+        $v = new PostValidator($_POST, $postTable, $categories);
+        
         $params = ['name','content','slug','created_at'];
+        
         ObjectHelper::hydrate($post, $params);
         
+
         if($v->validate()) {
-            $postTable->createPost($post);
+            if(isset($_POST['categories_ids'])){
+                $postTable->createPost($post, $_POST['categories_ids']);
+            }else{
+                $postTable->createPost($post);
+            }
+            
             $success = true;
             header("Location: " . $router->url('admin_post', ['id' => $post->getId(), 'slug' => $post->getSlug()]) ."?success=1");
             exit(); 
