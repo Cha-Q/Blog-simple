@@ -116,5 +116,22 @@
 
         }
 
+        public function prepAndFetch(string $sql, array $params)
+        {
+            $array = [];
+            foreach($params as $k => $param){
+                $a = $$param;
+                 $array[] = "$param => $a";
+            }
+            $query = $sql;
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute(
+                $array
+            );
+            $stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
+            
+            $posts = $stmt->fetch();
+        }
+
         
     }

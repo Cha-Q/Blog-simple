@@ -31,12 +31,15 @@
             }
             if(isset($this->errors[$name])){
                 $inputClass .= " is-invalid";
-                $invalidFeedback = "<div class='invalid-feedback'>" . implode('<br>', $this->errors[$name]) . "</div>";
+                $invalidFeedback = $this->getErrorFeedback($name);
             }
+
+            $type = ($name === 'password') ? 'password' : 'text';
+
 
             return <<<HTML
             <label for="{$name}">$label</label>
-            <input class="$inputClass" id="{$name}" type="text" name="{$name}" $p>
+            <input class="$inputClass" id="{$name}" type="$type" name="{$name}" $p>
                 $invalidFeedback
             HTML;
         }
@@ -110,7 +113,13 @@
         private function getErrorFeedback(string $key) : string
         {
              if(isset($this->errors[$key])){
-                return "<div class='invalid-feedback'>" . implode('<br>', $this->errors[$key]) . "</div>";
+                if(is_array($this->errors[$key])){
+                    $error = implode('<br>', $this->errors[$key]);
+                }else{
+                    $error = $this->errors[$key];
+                }
+                
+                return "<div class='invalid-feedback'>" . $error . "</div>";
             }
             return '';
             

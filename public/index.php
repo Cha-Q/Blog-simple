@@ -32,7 +32,7 @@ $router
     ->get('/blog', 'post/index', 'blog')
     ->get('/blog/categorie/[*:slug]-[i:id]', 'categorie/show', 'categorie')
     ->get('/blog/[*:slug]-[i:id]', 'post/show', 'post')
-    ->get('/connexion', 'login/index', 'connexion')
+    ->get('/connexion', 'login/login', 'connexion')
     ->match('/register', 'login/register/index', 'register')
     ->match('/sign-in', 'login/sign/index', 'sign')
     // ADMIN

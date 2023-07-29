@@ -23,7 +23,7 @@
 
     $success = false;
     
-    dump($post);
+ 
     
    $error = null;
     
@@ -61,7 +61,7 @@
     
 ?>
 
-    <h1>Editez l'article <strong><?= e($postName) ?></strong></h1>
+    <h1>Editer l'article <strong><?= e($postName) ?></strong></h1>
 
     <?php if(isset($_GET["success"]) == "1") : ?>
     <div class="alert alert-success">

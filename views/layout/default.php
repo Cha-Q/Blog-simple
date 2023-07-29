@@ -24,11 +24,14 @@
     </style>
 
     <nav class="navbar p-2 navbar-dark wrap bg-primary">
-        <a href="<?= $router->url('blog')?>" class="navbar-brand p-2">Mon Site</a>
+        <div class="p-2 h-1">
+            <a href="<?= $router->url('blog')?>" class="navbar-brand p-2 h-1">Mon Site</a>
+        </div>
+        
         <?php if($title != 'Sign'): ?>
         <ul class="navbar-nav d-flex">
             <li class="nav-item">
-                <a href="<?= $router->url('connexion')?>" class="btn btn-secondary nav-link text-light px-2">Se connecter</a>
+                <a href="<?= $router->url('connexion')?>" class="btn btn-secondary nav-link text-light  px-2">Se connecter</a>
             </li>
             
         </ul>

@@ -50,7 +50,7 @@
     
 ?>
 
-    <h1>Editez la catégorie <strong><?= $item->getName() ?></strong></h1>
+    <h1>Editer la catégorie <strong><?= $item->getName() ?></strong></h1>
 
     <?php if(isset($_GET["success"]) == "1") : ?>
     <div class="alert alert-success">

@@ -5,7 +5,7 @@
     use App\table\{PostTable, CategoryTable};
 
     
-    $description = 'Retrouvez ici toutes les catégories que vous aimez sur notre site';
+    $description = 'Retrouvez ici toutes les catégories de notre site';
 
     $id = (int)$params['id'];
     $slug = $params['slug'];

@@ -33,7 +33,7 @@
 
 ?>
 
-<h2>Les posts correspondants à la catégorie <strong><?= $title ?></strong></h2>
+<h2 class='text-light'>Les posts correspondants à la catégorie <strong><?= $title ?></strong></h2>
 
 <div class="d-flex justify-content-center flex-wrap"> 
         <?php foreach($posts as $post): ?>
