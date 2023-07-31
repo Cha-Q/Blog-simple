@@ -6,6 +6,13 @@
     class User {
 
         /**
+         * id de l'utilisateur
+         * 
+         */
+
+        private $id;
+
+        /**
          * Nom de l'utilisateur
          * 
          */
@@ -21,6 +28,7 @@
          * Get nom de l'utilisateur
 
          */ 
+
         public function getUsername(): ?string
         {
                 return $this->username;
@@ -56,4 +64,25 @@
 
                 return $this;
         }
+
+        /**
+         * Get the value of id
+         */ 
+        public function getId(): ?int
+        {
+                return $this->id;
+        }
+
+        /**
+         * Set the value of id
+         *
+         * @return  self
+         */ 
+        public function setId($id)
+        {
+                $this->id = $id;
+
+                return $this;
+        }
     }
+

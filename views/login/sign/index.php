@@ -6,19 +6,37 @@
     use App\Form;
     use App\table\UserTable;
     use App\Connection;
+use App\table\Exception\NotFoundException;
 
     $user = new User;
     $errors = [];
 
     if(!empty($_POST)){
+        
         $user->setUsername($_POST['username']);
-        if(empty($_POST['username']) || empty($_POST['password'])){
-            
-            $errors['password'] = "Identifiant ou mot de passe incorrect";
+        $errors['password'] = "Identifiant ou mot de passe incorrect";
+
+        if(!empty($_POST['username']) || !empty($_POST['password'])){
+             $table = new UserTable(Connection::getPDO());
+           try{
+             $u = $table->findByUsername($user->getUsername());
+            if(password_verify($_POST['password'], $u->getPassword())){
+                session_start();
+                $_SESSION['auth'] = $u->getId();
+                header('Location: ' . $router->url('admin_posts'));
+                exit();
+             }
+             
+            } catch (NotFoundException $e){
+                
+            }
         }
-        $table = new UserTable(Connection::getPDO());
-        $u = $table->findByUsername($user->getUsername());
-        dump($u);
+       
+        
+        
+        
+        
+        
     }
     $form = new Form($user, $errors);
 

@@ -4,8 +4,8 @@
     namespace App;
 
     use AltoRouter;
+use App\security\ForbiddenException;
 
-    
     class Router {
 
 
@@ -38,7 +38,7 @@
             return $this;
         }
 
-        public function match(string $url, string $view, ?string $name = null):self
+        public function match(string $url, ?string $view, ?string $name = null):self
         {
             $this->router->map('POST|GET', $url, $view, $name);
             return $this;
@@ -52,15 +52,23 @@
         public function run() : self
         {
             $match = $this->router->match();
+            // trouver l'erreur du array offset
+            $view = $match['target'] ?: 'e404';
             $params = $match['params'];
-            $view = $match['target'];
             $router = $this;
             $isAdmin = strpos($view, 'admin/') !== false;
             $layout = $isAdmin ? 'admin/layout/default' : 'layout/default';
-            ob_start();
-            require $this->viewPath . DIRECTORY_SEPARATOR . $view . '.php';
-            $content = ob_get_clean();
-            require $this->viewPath . DIRECTORY_SEPARATOR . $layout .'.php';
+            
+            try{
+                ob_start();
+                require $this->viewPath . DIRECTORY_SEPARATOR . $view . '.php';
+                $content = ob_get_clean();
+                require $this->viewPath . DIRECTORY_SEPARATOR . $layout .'.php';
+            } catch(ForbiddenException $e){
+                header('Location: ' . $router->url('connexion') . '?forbidden=1');
+                exit();
+            }
+               
             return $this;
         }
         

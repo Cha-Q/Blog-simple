@@ -28,7 +28,12 @@
                 Categories
             </a></li>
         </ul>
-        
+
+        <?php if(isset($_SESSION['auth'])): ?>
+            <form method="POST" action="<?= $router->url('disconnect')?>" style="display:inline;">
+                <button class="btn btn-danger nav-link text-light px-2" type="submit">Se déconnecter</button>
+            </form>
+        <?php endif?>
     </nav>
 
     <div class="h-100">

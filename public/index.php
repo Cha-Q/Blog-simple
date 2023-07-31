@@ -35,6 +35,7 @@ $router
     ->get('/connexion', 'login/login', 'connexion')
     ->match('/register', 'login/register/index', 'register')
     ->match('/sign-in', 'login/sign/index', 'sign')
+    ->post('/disconnect', 'login/disconnect', 'disconnect')
     // ADMIN
     // gestion des articles
     ->get('/admin', 'admin/post/index', 'admin_posts')

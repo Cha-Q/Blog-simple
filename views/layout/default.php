@@ -29,12 +29,17 @@
         </div>
         
         <?php if($title != 'Sign'): ?>
-        <ul class="navbar-nav d-flex">
-            <li class="nav-item">
-                <a href="<?= $router->url('connexion')?>" class="btn btn-secondary nav-link text-light  px-2">Se connecter</a>
-            </li>
-            
-        </ul>
+            <ul class="navbar-nav d-flex">
+                <li class="nav-item">
+                    <a href="<?= $router->url('connexion')?>" class="btn btn-secondary nav-link text-light  px-2">Se connecter</a>
+                </li>
+                
+            </ul>
+        <?php endif?>
+        <?php if(isset($_SESSION['auth'])): ?>
+            <form action="POST" action="<?= $router->url('disconnect')?>" style="display:inline;">
+                <button class="btn btn-danger nav-link text-light px-2" type="submit">Se déconnecter</button>
+            </form>
         <?php endif?>
     </nav>
     <div class="h-100">
