@@ -52,9 +52,14 @@ use App\security\ForbiddenException;
         public function run() : self
         {
             $match = $this->router->match();
-            // trouver l'erreur du array offset
-            $view = $match['target'] ?: 'e404';
-            $params = $match['params'];
+            
+            if($match != false){
+                $view = $match['target'];
+                $params = $match['params'];
+            }else {
+                $view = 'e404';
+            }
+            
             $router = $this;
             $isAdmin = strpos($view, 'admin/') !== false;
             $layout = $isAdmin ? 'admin/layout/default' : 'layout/default';
