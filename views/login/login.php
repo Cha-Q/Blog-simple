@@ -1,9 +1,15 @@
-<?php 
+<?php
+
+use App\Auth;
+
     $title = "Sign";
-
-
+    session_start();
     
-    
+    $check = Auth::logged();
+    if($check === 'connecté'){
+        header('Location: ' . $router->url('admin_posts'));
+        exit();
+    }
 
 ?>
 <?php if(isset($_GET['forbidden']) == 1) : ?>

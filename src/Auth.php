@@ -3,6 +3,7 @@
     namespace App;
 
     use App\security\ForbiddenException;
+    use App\Router;
 
     class Auth{
 
@@ -14,9 +15,15 @@
             if(!isset($_SESSION['auth'])){
                 throw new ForbiddenException('vilain');
             }
-            // TODO : écrire la funcion
         }
         
+        public static function logged()
+        {
+            if(isset($_SESSION['auth'])){
+                return 'connecté';
+            }
+        }
+
 
 
     }

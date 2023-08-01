@@ -3,11 +3,19 @@
 
     use App\model\User;
     use App\Form;
+    use App\Auth;
 
     $user = new User;
     $form = new Form($user, []);
 
-   
+    session_start();
+    Auth::logged();
+
+    $check = Auth::logged();
+    if($check === 'connecté'){
+        header('Location: ' . $router->url('admin_posts'));
+        exit();
+    }
 
 ?>
 

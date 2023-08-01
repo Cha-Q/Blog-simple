@@ -52,8 +52,6 @@
             return $this;
         }
 
-
-
         public function set_post(Post $post)
         {
             return $this->post = $post;

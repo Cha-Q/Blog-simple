@@ -2,14 +2,22 @@
 
     $title = "Sign";
 
+    use App\Auth;
     use App\model\User;
     use App\Form;
     use App\table\UserTable;
     use App\Connection;
-use App\table\Exception\NotFoundException;
+    use App\table\Exception\NotFoundException;
 
     $user = new User;
     $errors = [];
+    session_start();
+    $check = Auth::logged();
+    if($check === 'connecté'){
+        header('Location: ' . $router->url('admin_posts'));
+        exit();
+    }
+    
 
     if(!empty($_POST)){
         
@@ -21,7 +29,7 @@ use App\table\Exception\NotFoundException;
            try{
              $u = $table->findByUsername($user->getUsername());
             if(password_verify($_POST['password'], $u->getPassword())){
-                session_start();
+                
                 $_SESSION['auth'] = $u->getId();
                 header('Location: ' . $router->url('admin_posts'));
                 exit();
